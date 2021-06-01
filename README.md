@@ -1,6 +1,9 @@
 # ln-env
 Setup for Testnet Bitcoin &amp; Lightning
 
+### Nodes
+![image](https://user-images.githubusercontent.com/2951406/120335523-33b45180-c2fa-11eb-89cc-352f60da91f8.png)
+
 ### Web Interfaces
  - LndHub: https://lndhub.lndev.link
  - LNbits: https://lnbits.lndev.link
