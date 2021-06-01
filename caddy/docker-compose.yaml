@@ -1,0 +1,12 @@
+version: "3.7"
+
+services:
+  caddy:
+    container_name: caddy2
+    image: caddy:2.4.0-alpine
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - ./www:/etc/www/
+      - ./volumes/caddy/data:/data
+      - ./volumes/caddy/config:/config
+    network_mode: host

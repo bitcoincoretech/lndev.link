@@ -1,0 +1,10 @@
+version: "3.7"
+
+services:
+    bitcoind:
+      image: lncm/bitcoind:v0.21.0
+      container_name: bitcoin
+      restart: on-failure
+      volumes:
+        - ./volumes/bitcoin:/data/.bitcoin
+      network_mode: host

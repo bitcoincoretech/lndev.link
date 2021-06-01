@@ -1,0 +1,18 @@
+version: "3.7"
+
+services:
+  web:
+    build: ./lnbits
+    container_name: lnbits-web
+    image: lnbits:local
+    volumes:
+      - ./volumes/lnd:/lnd:ro
+      - ./volumes/data:/app/lnbits/data
+    environment:
+      LNBITS_SITE_TITLE: "Testnet - LNbits"
+      LNBITS_BACKEND_WALLET_CLASS: "LndWallet"
+      LND_GRPC_ENDPOINT: "127.0.0.1"
+      LND_GRPC_PORT: 20009
+      LND_GRPC_CERT: "/lnd/tls.cert"
+      LND_GRPC_MACAROON: "/lnd/admin.macaroon"
+    network_mode: host

@@ -1,0 +1,26 @@
+version: "3.7"
+
+services:
+  redis:
+    container_name: redis
+    image: redis:6.2-buster
+    command: redis-server --requirepass ${REDIS_PASSWORD}
+    restart: on-failure
+    stop_grace_period: 5m
+    stop_signal: SIGINT
+    volumes:
+      - ./volumes/redis:/data
+    network_mode: host
+  web:
+    build: ./LndHub
+    container_name: lndhub-web
+    image: lndhub:v1.3.0-local
+    depends_on: [redis]
+    volumes:
+      - ./volumes/lnd:/lnd:ro
+    environment:
+      PORT: "${APP_LNDHUB_PORT}"
+      LND_CERT_FILE: "/lnd/tls.cert"
+      LND_ADMIN_MACAROON_FILE: "/lnd/admin.macaroon"
+      CONFIG: '{ "redis": { "port": 6379, "host": "localhost", "family": 4, "password": "your_password_here", "db": 0 }, "lnd": { "url": "localhost:10009", "password": ""}}'
+    network_mode: host
