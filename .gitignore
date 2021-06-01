@@ -1,0 +1,6 @@
+volumes
+temp
+
+# Environment varibales
+.env*
+!.env*.example

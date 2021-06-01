@@ -1,0 +1,40 @@
+version: '3.9'
+services:
+    lnd1:
+        image: lightninglabs/lnd:v0.12.0-beta.rc6
+        container_name: lnd1-testnet
+        volumes:
+          - ./volumes/.lnd1:/root/.lnd
+        command: "lnd --rpclisten=0.0.0.0:10009 --restlisten=0.0.0.0:10080 
+                    --bitcoin.active
+                    --bitcoin.testnet
+                    --bitcoin.node=bitcoind
+                    --bitcoind.rpchost=${BITCOIN_RPC_HOST}
+                    --bitcoind.rpcuser=${BITCOIN_RPC_USER}
+                    --bitcoind.rpcpass=${BITCOIN_RPC_PASS}
+                    --bitcoind.zmqpubrawblock=tcp://127.0.0.1:28332
+                    --bitcoind.zmqpubrawtx=tcp://127.0.0.1:28333
+                    --tlsautorefresh
+                    --tlsextradomain=lndev.link
+                    --debuglevel=info"
+        network_mode: host
+
+
+    lnd2:
+        image: lightninglabs/lnd:v0.12.0-beta.rc6
+        container_name: lnd2-testnet
+        volumes:
+            - ./volumes/.lnd2:/root/.lnd
+        command: "lnd --rpclisten=0.0.0.0:20009 --restlisten=0.0.0.0:20080 --listen=0.0.0.0:9736
+                    --bitcoin.active
+                    --bitcoin.testnet
+                    --bitcoin.node=bitcoind
+                    --bitcoind.rpchost=${BITCOIN_RPC_HOST}
+                    --bitcoind.rpcuser=${BITCOIN_RPC_USER}
+                    --bitcoind.rpcpass=${BITCOIN_RPC_PASS}
+                    --bitcoind.zmqpubrawblock=tcp://127.0.0.1:28332
+                    --bitcoind.zmqpubrawtx=tcp://127.0.0.1:28333
+                    --tlsautorefresh
+                    --tlsextradomain=lndev.link
+                    --debuglevel=info"
+        network_mode: host

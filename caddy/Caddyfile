@@ -1,0 +1,20 @@
+{
+    # Optional email key for lets encrypt
+    email stan.v.vlad@gmail.com
+    # Optional staging lets encrypt for testing. Comment out for production.
+    # acme_ca https://acme-staging-v02.api.letsencrypt.org/directory
+}
+
+lndev.link {
+    root * /etc/www/
+    try_files /{path} {path}/ /index.html
+    file_server
+}
+
+lnbits.lndev.link {
+    reverse_proxy 127.0.0.1:5000
+}
+
+lndhub.lndev.link {
+    reverse_proxy 127.0.0.1:3030
+}
